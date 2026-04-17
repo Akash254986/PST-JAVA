@@ -1,0 +1,17 @@
+class ParkingSystem {
+    private int[] slots;
+
+    public ParkingSystem(int big, int medium, int small) {
+        // We use an array of size 3 to store counts for types 1, 2, and 3
+        this.slots = new int[]{big, medium, small};
+    }
+
+    public boolean addCar(int carType) {
+        // carType 1 maps to index 0, 2 to index 1, etc.
+        if (this.slots[carType - 1] > 0) {
+            this.slots[carType - 1]--;
+            return true;
+        }
+        return false;
+    }
+}
