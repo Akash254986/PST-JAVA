@@ -1,0 +1,66 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+class Result {
+
+    /*
+     * Complete the 'timeConversion' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts STRING s as parameter.
+     */
+
+    public static String timeConversion(String s) {
+    
+    String period = s.substring(s.length() - 2);
+    // Extract the hour as an integer
+    int hour = Integer.parseInt(s.substring(0, 2));
+    // Extract the minutes and seconds part
+    String restOfTime = s.substring(2, s.length() - 2);
+    
+    String newHour;
+    
+    if (period.equals("AM")) {
+        if (hour == 12) {
+            newHour = "00"; // Rule 1: 12AM -> 00
+        } else {
+            // Rule 2: 01AM-11AM -> Stay the same (with leading zero)
+            newHour = String.format("%02d", hour);
+        }
+    } else { // It's PM
+        if (hour == 12) {
+            newHour = "12"; // Rule 3: 12PM -> 12
+        } else {
+            // Rule 4: 01PM-11PM -> Add 12
+            newHour = String.valueOf(hour + 12);
+        }
+    }
+    
+    return newHour + restOfTime;
+}
+
+    }
+
+
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = bufferedReader.readLine();
+
+        String result = Result.timeConversion(s);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
